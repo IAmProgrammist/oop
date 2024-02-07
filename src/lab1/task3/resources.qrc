@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>assets/align_left.png</file>
+        <file>assets/align_center.png</file>
+        <file>assets/align_right.png</file>
+        <file>assets/flow_around.png</file>
+        <file>assets/flow_no.png</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,6 @@
+add_subdirectory(libs)
+
+if (NOT LIBRARY_ONLY)
+    # add_executable(lab1_task1 lab1/task1/main.cpp)
+    # target_link_libraries(lab1_task1 alg)
+endif()

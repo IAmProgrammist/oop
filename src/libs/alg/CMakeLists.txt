@@ -1,0 +1,1 @@
+# add_library(alg ${lab1funcs})

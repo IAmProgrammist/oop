@@ -20,5 +20,3 @@ if (NOT LIBRARY_ONLY)
     enable_testing()
     add_subdirectory(test)
 endif()
-
-# install(TARGETS alg DESTINATION .)

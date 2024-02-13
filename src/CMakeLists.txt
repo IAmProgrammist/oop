@@ -3,6 +3,7 @@ add_subdirectory(libs)
 if (NOT LIBRARY_ONLY)
     add_executable(lab1_task1 lab1/task1/main.cpp)
     add_executable(lab1_task2 lab1/task2/main.cpp)
+    add_executable(lab2 lab2/main.cpp)
 
     if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         qt_add_executable(lab1_task3
@@ -84,5 +85,5 @@ if (NOT LIBRARY_ONLY)
     endif()
 
 
-    # target_link_libraries(lab1_task1 alg)
+    target_link_libraries(lab2 alg)
 endif()

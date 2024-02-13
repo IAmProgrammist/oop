@@ -1,13 +1,11 @@
 #pragma once
 
-#include <chrono>
+#include <ostream>
 #include <vector>
-#include <thread>
-#include <future>
 
 namespace todolist {
     struct ttime {
-        std::time_t time; 
+        time_t time;
     };
 
     struct date {
@@ -32,19 +30,21 @@ namespace todolist {
         date begin;
         date end;
         std::string description;
-        status _status;
+        bool completed;
       
         public:
-        task(date beg, date end);
+        task(date beg, date end, std::string description);
         date get_begin();
         date get_end();
-        std::string get_description;
-        std::string set_destription;
-        void set_begin(date begin);
-        void set_end(date end);
-        void update();
-        void set_status(bool completed);
+        std::string get_description();
         status get_status();
+        int get_id();
+        void set_destription(std::string description);
+        void set_begin(date beg);
+        void set_end(date end);
+        void set_completed(bool completed);
+
+        static bool task_cmp(task a, task b);
 
         friend std::ostream& operator<<(std::ostream& out, task& task);
     };
@@ -53,14 +53,11 @@ namespace todolist {
         public:
         void add_task(task task);
         void delete_task(int task_id);
+        task get_task(int task_id);
         
         friend std::ostream& operator<<(std::ostream& out, schedule& task);
 
         private:
         std::vector<task> tasks;
-        void update();
-        std::future<void> updater;
-        std::mutex update_mutex;
-        bool should_run;
-    }
+    };
 }

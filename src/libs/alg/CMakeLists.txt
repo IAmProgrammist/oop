@@ -1,1 +1,1 @@
-# add_library(alg ${lab1funcs})
+add_library(alg todolist/todolist.cpp)

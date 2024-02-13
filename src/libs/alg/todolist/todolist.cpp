@@ -93,6 +93,7 @@ namespace todolist {
         buf << "Begin:       " << task.begin << "\n";
         buf << "End:         " << task.end << "\n";
         buf << "Description: " << task.description << "\n";
+        buf << "Status:      " << task.get_status()<< "\n";
 
         out << buf.str();
 
@@ -114,6 +115,9 @@ namespace todolist {
             this->tasks[pos - this->tasks.begin()] = task;
     }
 
+
+
+
     void schedule::delete_task(int task_id) {
         auto pos = std::find_if(this->tasks.begin(), this->tasks.end(), [&task_id](struct task item) {
             return item.get_id() == task_id;
@@ -134,5 +138,18 @@ namespace todolist {
             throw std::invalid_argument("Task with such id doesn't exists");
         else
             return this->tasks[pos - this->tasks.begin()];
+    }
+
+
+    std::ostream& operator<<(std::ostream& out, schedule& schedule) {
+        if (schedule.tasks.size() == 0)
+            return out << "No tasks";
+
+        out << "Tasks: \n";
+        for (auto &t : schedule.tasks) {
+            out << "==========================\n";
+            out << t << "\n";
+        }
+        return out << "==========================";
     }
 }

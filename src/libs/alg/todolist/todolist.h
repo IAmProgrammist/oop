@@ -23,6 +23,18 @@ namespace todolist {
         completed
     };
 
+    // This is single function i couldn't put in .cpp file
+    // God forgive me
+    inline std::ostream & operator<<(std::ostream & out, todolist::status s) {
+        switch (s) {
+        case todolist::status::awaits: return out << "Awaits";
+        case todolist::status::in_progress: return out << "In progress";
+        case todolist::status::overdue: return out << "Overdue";
+        case todolist::status::completed: return out << "Completed";
+        default: return out << (int) s;
+        }
+    }
+
     struct task {
         private:
         static int id_counter;

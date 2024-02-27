@@ -11,6 +11,7 @@ public:
     Date getDayAfter();
     Date getDayBefore();
     int getDaysBeforeMonthEnd();
+    boost::gregorian::date getData();
 
     Date& operator<<(int amount);
     Date& operator>>(int amount);

@@ -8,6 +8,7 @@ if (NOT LIBRARY_ONLY)
     add_executable(lab5 lab5/main.cpp)
     add_executable(lab6_task1 lab6/task1/main.cpp)
     add_executable(lab6_task2 lab6/task2/main.cpp)
+    add_executable(lab7 lab7/main.cpp)
 
     if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         qt_add_executable(lab1_task3
@@ -92,4 +93,5 @@ if (NOT LIBRARY_ONLY)
     target_link_libraries(lab2 alg)
     target_link_libraries(lab4 alg)
     target_link_libraries(lab5 alg)
+    target_link_libraries(lab7 alg)
 endif()

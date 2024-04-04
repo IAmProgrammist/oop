@@ -4,6 +4,7 @@
 #include <initializer_list>
 #include <stdexcept>
 #include <malloc.h>
+#include <iostream>
 
 template <typename T>
 class Matrix;
@@ -31,13 +32,16 @@ class Matrix {
     int height_capacity = 0;
 
 public:
-    Matrix();
+    Matrix() {};
     Matrix(std::initializer_list<T> init, int width, int height);
     ~Matrix();
 
     void push_back(std::initializer_list<T> row);
     void resize_width(int new_width);
     void resize_height(int new_height);
+
+    int get_width();
+    int get_height();
 
     T& operator()(int index_row, int index_column);
     MatrixRow<T> operator()(int index_row);
@@ -95,7 +99,7 @@ void Matrix<T>::resize_width(int new_width) {
         this->width_capacity = std::max(this->width * 2 + 1, this->width_capacity * 2 + 1);
 
         for (int i = 0; i < this->height_capacity; i++) {
-            this->data[i] = (int*) realloc(this->data[i], this->width_capacity * sizeof(T));
+            this->data[i] = (T*) realloc(this->data[i], this->width_capacity * sizeof(T));
 
             if (!this->data[i])
                 throw std::length_error("Out of memory");
@@ -111,13 +115,13 @@ void Matrix<T>::resize_height(int new_height) {
         int old_height_capacity = this->height_capacity;
 
         this->height_capacity = std::max(this->height * 2 + 1, this->height_capacity * 2 + 1);
-        this->data = (int**) realloc(this->data, this->height_capacity * sizeof(T*));
+        this->data = (T**) realloc(this->data, this->height_capacity * sizeof(T*));
 
         if (!this->data)
             throw std::length_error("Out of memory");
 
         for (int i = old_height_capacity; i < this->height_capacity; i++) {
-            this->data[i] = (int*) malloc(this->width_capacity * sizeof(T));
+            this->data[i] = (T*) malloc(this->width_capacity * sizeof(T));
 
             if (!this->data[i])
                 throw std::length_error("Out of memory");
@@ -149,6 +153,16 @@ Matrix<T>::~Matrix() {
         free(this->data[i]);
 
     free(this->data);
+}
+
+template <typename T>
+int Matrix<T>::get_width() {
+    return this->width;
+}
+
+template <typename T>
+int Matrix<T>::get_height() {
+    return this->height;
 }
 
 #endif // MATRIX_TPP

@@ -1,25 +1,21 @@
 #include "../../libs/alg/studentslist/studentslist.h"
 
+#include <cstring>
 #include <fstream>
 #include <algorithm>
 #include <iostream>
 
-template <typename T>
-bool compare(T a, T b) {
-    return a > b;
-}
-
-template <typename T>
-bool equals(T a, T b) {
-    return a == b;
-}
-
-bool filter_by_name(Student& a, std::string& val) {
-    return equals(a.name, val);
+bool filter_by_name(Student& a, CharString & val) {
+    return strcmp(a.name.val, val.val) == 0;
 }
 
 struct {
-    bool operator()(const Student &a, const Student &b) const { return !compare(a.mark, b.mark); }
+    bool operator()(const Student &a, const Student &b) const {
+        int mark1 = std::atoi(a.mark.val);
+        int mark2 = std::atoi(b.mark.val);
+
+        return mark1 < mark2;
+    }
 } sort_by_mark;
 
 int main() {
@@ -31,18 +27,27 @@ int main() {
         std::getline(in, val);
         auto space_pos = std::find(val.begin(), val.end(), ' ');
         std::string name = val.substr(0, space_pos - val.begin());
-        auto old_space_pos = space_pos + 1;
-        space_pos = std::find(space_pos + 1, val.end(), ' ');
-        int age = std::stoi(val.substr(old_space_pos - val.begin(), space_pos - val.begin()));
-        old_space_pos = space_pos + 1;
-        int mark = std::stoi(val.substr(old_space_pos - val.begin(), val.end() - val.begin()));
+        CharString namec;
+        strcpy(namec.val, name.c_str());
 
-        list.add({name, age, mark});
+        auto old_space_pos = space_pos + 1;
+        space_pos = std::find(old_space_pos, val.end(), ' ');
+        std::string age = val.substr(old_space_pos - val.begin(), space_pos - old_space_pos);
+        CharString agec;
+        strcpy(agec.val, age.c_str());
+
+        old_space_pos = space_pos + 1;
+        std::string mark = (val.substr(old_space_pos - val.begin(), space_pos - old_space_pos));
+        CharString markc;
+        strcpy(markc.val, mark.c_str());
+
+        list.add({namec, agec, markc});
     }
     in.close();
+    CharString search_val = {"Christina"};
 
-    auto search = list.find<std::string>("Glenda", sort_by_mark, filter_by_name);
+    auto search = list.find<CharString>(search_val, sort_by_mark, filter_by_name);
 
     for (auto& student : search)
-        std::cout << student.name << " " << student.age << " " << student.mark << std::endl;
+        std::cout << student.name.val << " " << student.age.val << " " << student.mark.val << std::endl;
 }

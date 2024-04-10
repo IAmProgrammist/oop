@@ -11,6 +11,7 @@ if (NOT LIBRARY_ONLY)
     add_executable(lab7 lab7/main.cpp)
     add_executable(lab8_task1 lab8/task1/main.cpp)
     add_executable(lab8_task2 lab8/task2/main.cpp)
+    add_executable(lab9 lab9/main.cpp)
 
     if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         qt_add_executable(lab1_task3

@@ -21,52 +21,49 @@
 #include "smartptr.h"
 
 QT_BEGIN_NAMESPACE
-class Ui_MainWindow
-{
+class Ui_MainWindow {
     const static int screenHeight = 400;
     const static int screenWidth = 300;
 
-    QWidget* centralWidget = nullptr;
-    QGridLayout* mainLayout = nullptr;
+    smart_ptr<QWidget> centralWidget = new QWidget();
+    smart_ptr<QGridLayout> mainLayout = new QGridLayout(centralWidget);
 
-    QTextEdit* field = nullptr;
+    smart_ptr<QTextEdit> field = new QTextEdit;
 
-    QPushButton* plusButton = nullptr;
-    QPushButton* multButton = nullptr;
-    QPushButton* divButton = nullptr;
-    QPushButton* powButton = nullptr;
+    smart_ptr<QPushButton> plusButton = new QPushButton("+");
+    smart_ptr<QPushButton> multButton = new QPushButton("*");
+    smart_ptr<QPushButton> divButton = new QPushButton("/");
+    smart_ptr<QPushButton> powButton = new QPushButton("^");
 
-    QPushButton* tildaButton = nullptr;
-    QPushButton* lParButton = nullptr;
-    QPushButton* rParButton = nullptr;
+    smart_ptr<QPushButton> tildaButton = new QPushButton("~");
+    smart_ptr<QPushButton> lParButton = new QPushButton("(");
+    smart_ptr<QPushButton> rParButton = new QPushButton(")");
 
-    QPushButton* oneButton = nullptr;
-    QPushButton* twoButton = nullptr;
-    QPushButton* threeButton = nullptr;
-    QPushButton* sinButton = nullptr;
+    smart_ptr<QPushButton> oneButton = new QPushButton("1");
+    smart_ptr<QPushButton> twoButton = new QPushButton("2");
+    smart_ptr<QPushButton> threeButton = new QPushButton("3");
+    smart_ptr<QPushButton> sinButton = new QPushButton("sin");
 
-    QPushButton* fourButton = nullptr;
-    QPushButton* fiveButton = nullptr;
-    QPushButton* sixButton = nullptr;
-    QPushButton* cosButton = nullptr;
 
-    QPushButton* sevenButton = nullptr;
-    QPushButton* eightButton = nullptr;
-    QPushButton* nineButton = nullptr;
-    QPushButton* minusButton = nullptr;
+    smart_ptr<QPushButton> fourButton = new QPushButton("4");
+    smart_ptr<QPushButton> fiveButton = new QPushButton("5");
+    smart_ptr<QPushButton> sixButton = new QPushButton("6");
+    smart_ptr<QPushButton> cosButton = new QPushButton("cos");
 
-    QPushButton* zeroButton = nullptr;
-    QPushButton* dotButton = nullptr;
-    QPushButton* eqButton = nullptr;
-    QPushButton* eraseButton = nullptr;
+    smart_ptr<QPushButton> sevenButton = new QPushButton("7");
+    smart_ptr<QPushButton> eightButton = new QPushButton("8");
+    smart_ptr<QPushButton> nineButton = new QPushButton("9");
+    smart_ptr<QPushButton> minusButton = new QPushButton("-");
+
+    smart_ptr<QPushButton> zeroButton = new QPushButton("0");
+    smart_ptr<QPushButton> dotButton = new QPushButton(".");
+    smart_ptr<QPushButton> eqButton = new QPushButton("=");
+    smart_ptr<QPushButton> eraseButton = new QPushButton("<-");
 
     std::deque<MathParser::Token> tokens;
 public:
-    void setupUi(QMainWindow *mainWindow)
-    {
+    void setupUi(QMainWindow *mainWindow) {
         mainWindow->setWindowTitle("Инженерный калькулятор");
-
-        centralWidget = new QWidget();
 
         centralWidget->setMinimumHeight(screenHeight);
         centralWidget->setFixedHeight(screenHeight);
@@ -84,44 +81,12 @@ public:
         mainWindow->setFixedWidth(screenWidth);
         mainWindow->setMaximumWidth(screenWidth);
 
-        mainLayout = new QGridLayout(centralWidget);
-
-        field = new QTextEdit();
         field->setMaximumHeight(50);
         field->setReadOnly(true);
 
         mainLayout->addWidget(field, 0, 0, 1, 4);
 
         mainWindow->setCentralWidget(centralWidget);
-
-        plusButton = new QPushButton("+");
-        multButton = new QPushButton("*");
-        divButton = new QPushButton("/");
-        powButton = new QPushButton("^");
-
-        tildaButton = new QPushButton("~");
-        lParButton = new QPushButton("(");
-        rParButton = new QPushButton(")");
-
-        oneButton = new QPushButton("1");
-        twoButton = new QPushButton("2");
-        threeButton = new QPushButton("3");
-        sinButton = new QPushButton("sin");
-
-        fourButton = new QPushButton("4");
-        fiveButton = new QPushButton("5");
-        sixButton = new QPushButton("6");
-        cosButton = new QPushButton("cos");
-
-        sevenButton = new QPushButton("7");
-        eightButton = new QPushButton("8");
-        nineButton = new QPushButton("9");
-        minusButton = new QPushButton("-");
-
-        zeroButton = new QPushButton("0");
-        dotButton = new QPushButton(".");
-        eqButton = new QPushButton("=");
-        eraseButton = new QPushButton("<-");
 
         mainLayout->addWidget(plusButton, 1, 0);
         mainLayout->addWidget(multButton, 1, 1);

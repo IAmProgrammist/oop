@@ -30,12 +30,22 @@ if (NOT LIBRARY_ONLY)
             lab1/task4/mainwindow.h
             lab1/task4/mainwindow.ui
         )
+
+        qt_add_executable(lab10
+            MANUAL_FINALIZATION
+            lab10/main.cpp
+
+            lab10/mainwindow.h
+        )
     else()
         if(ANDROID)
             add_library(lab1_task3 SHARED
                 ${PROJECT_SOURCES}
             )
             add_library(lab1_task4 SHARED
+                ${PROJECT_SOURCES}
+            )
+            add_library(lab10 SHARED
                 ${PROJECT_SOURCES}
             )
     # Define properties for Android with Qt 5 after find_package() calls as:
@@ -48,15 +58,21 @@ if (NOT LIBRARY_ONLY)
             add_executable(lab1_task4
                 ${PROJECT_SOURCES}
             )
+
+            add_executable(lab10
+                ${PROJECT_SOURCES}
+            )
         endif()
     endif()
 
     target_link_libraries(lab1_task3 PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
     target_link_libraries(lab1_task4 PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+    target_link_libraries(lab10 PRIVATE Qt${QT_VERSION_MAJOR}::Widgets alg)
 
     if(${QT_VERSION} VERSION_LESS 6.1.0)
       set(BUNDLE_ID_OPTION MACOSX_BUNDLE_GUI_IDENTIFIER com.example.lab1_task3)
       set(BUNDLE_ID_OPTION MACOSX_BUNDLE_GUI_IDENTIFIER com.example.lab1_task4)
+      set(BUNDLE_ID_OPTION MACOSX_BUNDLE_GUI_IDENTIFIER com.example.lab10)
     endif()
 
     set_target_properties(lab1_task3 PROPERTIES
@@ -75,6 +91,14 @@ if (NOT LIBRARY_ONLY)
         WIN32_EXECUTABLE TRUE
     )
 
+    set_target_properties(lab10 PROPERTIES
+        ${BUNDLE_ID_OPTION}
+        MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
+        MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
+        MACOSX_BUNDLE TRUE
+        WIN32_EXECUTABLE TRUE
+    )
+
     include(GNUInstallDirs)
     install(TARGETS lab1_task3
         BUNDLE DESTINATION .
@@ -86,10 +110,16 @@ if (NOT LIBRARY_ONLY)
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
     )
+    install(TARGETS lab10
+        BUNDLE DESTINATION .
+        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+    )
 
     if(QT_VERSION_MAJOR EQUAL 6)
         qt_finalize_executable(lab1_task3)
         qt_finalize_executable(lab1_task4)
+        qt_finalize_executable(lab10)
     endif()
 
 
@@ -97,4 +127,5 @@ if (NOT LIBRARY_ONLY)
     target_link_libraries(lab4 alg)
     target_link_libraries(lab5 alg)
     target_link_libraries(lab7 alg)
+    target_link_libraries(lab9 alg)
 endif()

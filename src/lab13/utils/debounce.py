@@ -1,10 +1,5 @@
 import threading
 def debounce(wait_time):
-    """
-    Decorator that will debounce a function so that it is called after wait_time seconds
-    If it is called multiple times, will wait for the last call to be debounced and run only this one.
-    """
-
     def decorator(function):
         def debounced(*args, **kwargs):
             def call_function():

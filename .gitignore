@@ -93,3 +93,5 @@ target
 .DS_Store
 
 .mypy_cache
+
+__pycache__

@@ -1,0 +1,7 @@
+{
+    "files": [
+        "src/lab13/main.py",
+        "src/lab13/init_train.ui",
+        "src/lab13/train.ui"
+    ]
+}
